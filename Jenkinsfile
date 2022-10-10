@@ -45,12 +45,12 @@ pipeline {
             sh "echo ${env.GIT_COMMIT.take(7)}"
             sh "echo '192.168.1.108 my-local.registry' >> /etc/hosts"
             sh "cat /etc/hosts"
-            sh '''#!/bin/bash
+            sh """
             /kaniko/executor --dockerfile `pwd`/Dockerfile \
                               --context `pwd` \
                               --skip-tls-verify \
                               --destination=my-local.registry/nginx-test:${env.GIT_COMMIT.take(7)}
-            '''
+            """
           }
         }
       }
