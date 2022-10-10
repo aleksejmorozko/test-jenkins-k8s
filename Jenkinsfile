@@ -48,7 +48,7 @@ pipeline {
             sh '''
             /kaniko/executor  --dockerfile `pwd`/Dockerfile \
                               --context `pwd` \
-                              --destination=http://docker-registry-service.thrid.svc:5000/nginx-test:${env.GIT_COMMIT.take(7)}
+                              --destination=http://my-local.registry/nginx-test:${env.GIT_COMMIT.take(7)}
             '''
           }
         }
