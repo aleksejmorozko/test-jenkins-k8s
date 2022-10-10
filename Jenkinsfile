@@ -1,20 +1,20 @@
 properties([
-        parameters(
-                [
-                        stringParam(
-                                name: 'GIT_REPO',
-                                defaultValue: ''
-                        ),
-                        stringParam(
-                                name: 'VERSION',
-                                defaultValue: ''
-                        ),
-                        choiceParam(
-                                name: 'ENV',
-                                choices: ['test', 'staging', 'production']
-                        )
-                ]
-        )
+  parameters(
+    [
+      stringParam(
+        name: 'GIT_REPO',
+        defaultValue: ''
+      ),
+      stringParam(
+        name: 'VERSION',
+        defaultValue: ''
+      ),
+      choiceParam(
+        name: 'ENV',
+        choices: ['test', 'staging', 'production']
+      )
+    ]
+  )
 ])
 
 pipeline {
@@ -26,14 +26,13 @@ pipeline {
   }
 
   stages {
-    stage('Find deployment descriptor') {
+    stage('Find short commit') {
       steps {
         container('git') {
           script {
             def revision = params.VERSION.substring(0, 7)
-              sh 'echo $revision'
-            }
-
+            sh 'echo $revision'
+          }
         }
       }
     }
