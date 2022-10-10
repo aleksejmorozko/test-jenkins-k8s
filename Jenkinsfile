@@ -13,7 +13,7 @@ pipeline {
         container('kaniko'){
           script {
             sh "printenv"
-//            sh 'git rev-parse --short=8 HEAD'
+            sh 'git rev-parse --short=8 HEAD'
             sh '''
             /kaniko/executor  --dockerfile `pwd`/Dockerfile \
                               --context `pwd` \
