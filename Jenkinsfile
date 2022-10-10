@@ -30,8 +30,8 @@ pipeline {
       steps {
         container('git') {
           script {
-            def revision = 'git rev-parse --short=8 HEAD'
-            sh 'echo $revision'
+            sh_commit = 'git rev-parse --short=8 HEAD'
+            sh "echo $sh_commit"
           }
         }
       }
@@ -41,6 +41,7 @@ pipeline {
         container('kaniko'){
           script {
             sh "printenv"
+            sh 'apk add git'
             sh 'git rev-parse --short=8 HEAD'
             sh '''
             /kaniko/executor  --dockerfile `pwd`/Dockerfile \
