@@ -75,7 +75,7 @@ pipeline {
           script {
             dir ("${params.GIT_REPO}") {
               sh "/helm upgrade --install nginx-test .helm \
-                                --namespace fourth \
+                                --namespace six \
                                 --set registry=my-local.registry"            }
           }
         }
