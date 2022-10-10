@@ -25,7 +25,7 @@ pipeline {
     }
   }
 
-  stages {
+/*  stages {
     stage('Find short commit') {
       steps {
         container('git') {
@@ -35,18 +35,19 @@ pipeline {
           }
         }
       }
-    }
+    }*/
+
     stage ( 'Kaniko build'){
       steps {
         container('kaniko'){
           script {
             sh "printenv"
-            sh 'apk add git'
-            sh 'git rev-parse --short=8 HEAD'
+            sh ${GIT_COMMIT:0:8}
             sh '''
+            sh "echo '192.168.1.108 my-local.registry' >> /etc/hosts"
             /kaniko/executor  --dockerfile `pwd`/Dockerfile \
                               --context `pwd` \
-                              --destination=my-local.registry/nginx-test:${BUILD_NUMBER}
+                              --destination=my-local.registry/nginx-test:${GIT_COMMIT:0:8}
             '''
           }
         }
