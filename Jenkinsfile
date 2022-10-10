@@ -42,7 +42,7 @@ pipeline {
         container('kaniko'){
           script {
             sh "printenv"
-            sh ${GIT_COMMIT:0:8}
+            sh 'echo env.GIT_COMMIT.take(7)'
             sh '''
             sh "echo '192.168.1.108 my-local.registry' >> /etc/hosts"
             /kaniko/executor  --dockerfile `pwd`/Dockerfile \
