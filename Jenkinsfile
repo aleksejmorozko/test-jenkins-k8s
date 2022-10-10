@@ -1,5 +1,5 @@
 pipeline {
-  triggers { cron('*/1 * * * 1-5') }
+
   agent {
     kubernetes {
       yamlFile 'builder.yaml'
@@ -14,9 +14,9 @@ pipeline {
           script {
             sh 'git rev-parse --short=8 HEAD'
             sh '''
-            /kaniko/executor  --dockerfile ./Dockerfile \
+            /kaniko/executor  --dockerfile `pwd`/Dockerfile \
                               --context `pwd` \
-                              --destination=my-local.registry/nginx-test:${git rev-parse --short=8 HEAD}
+                              --destination=my-local.registry/nginx-test:${BUILD_NUMBER}
             '''
           }
         }
