@@ -12,6 +12,7 @@ pipeline {
       steps {
         container('kaniko'){
           script {
+            sh 'git rev-parse --short=8 HEAD'
             sh '''
             /kaniko/executor  --dockerfile ./Dockerfile \
                               --context `pwd` \
