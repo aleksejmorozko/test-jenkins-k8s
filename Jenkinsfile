@@ -48,6 +48,7 @@ pipeline {
             sh '''
             /kaniko/executor  --dockerfile `pwd`/Dockerfile \
                               --context `pwd` \
+                              --skip-tls-verify \
                               --destination=http://my-local.registry/nginx-test:${env.GIT_COMMIT.take(7)}
             '''
           }
