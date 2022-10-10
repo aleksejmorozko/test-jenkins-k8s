@@ -56,12 +56,27 @@ pipeline {
       }
     }
 
+/*
     stage('deploy'){
       steps {
         container('kubectl'){
           withCredentials([file(credentialsId: 'mykubeconfig', variable: 'KUBECONFIG')]) {
             sh 'sed -i "s/<TAG>/${BUILD_NUMBER}/" myweb.yaml'
             sh 'kubectl apply -f myweb.yaml'
+          }
+        }
+      }
+    }
+*/
+
+    stage('Deploy to env') {
+      steps {
+        container('helm-cli') {
+          script {
+            dir ("${params.GIT_REPO}") {
+              sh "/helm upgrade --install nginx-test .helm \
+                                --namespace fourth \
+                                --set registry=my-local.registry"            }
           }
         }
       }
