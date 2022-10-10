@@ -19,6 +19,7 @@ pipeline {
             /kaniko/executor  --dockerfile ./Dockerfile \
                               --context `pwd` \
                               --destination=my-local.registry/nginx-test:${git rev-parse --short=8 HEAD}
+            '''
           }
         }
       }
