@@ -25,8 +25,8 @@ pipeline {
     }
   }
 
-/*  stages {
-    stage('Find short commit') {
+  stages {
+/*    stage('Find short commit') {
       steps {
         container('git') {
           script {
@@ -35,8 +35,8 @@ pipeline {
           }
         }
       }
-    }*/
-
+    }
+*/
     stage ( 'Kaniko build'){
       steps {
         container('kaniko'){
