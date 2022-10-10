@@ -1,3 +1,22 @@
+properties([
+        parameters(
+                [
+                        stringParam(
+                                name: 'GIT_REPO',
+                                defaultValue: ''
+                        ),
+                        stringParam(
+                                name: 'VERSION',
+                                defaultValue: ''
+                        ),
+                        choiceParam(
+                                name: 'ENV',
+                                choices: ['test', 'staging', 'production']
+                        )
+                ]
+        )
+])
+
 pipeline {
 
   agent {
@@ -7,7 +26,17 @@ pipeline {
   }
 
   stages {
-
+    stage('Find deployment descriptor') {
+        steps {
+            container('git') {
+                script {
+                    def revision = params.VERSION.substring(0, 7)
+                    sh 'echo $revision'
+                    }
+                }
+            }
+        }
+    }
     stage ( 'Kaniko build'){
       steps {
         container('kaniko'){
