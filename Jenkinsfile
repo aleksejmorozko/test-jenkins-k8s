@@ -30,7 +30,7 @@ pipeline {
       steps {
         container('git') {
           script {
-            def revision = params.VERSION.substring(0, 7)
+            def revision = 'git rev-parse --short=8 HEAD'
             sh 'echo $revision'
           }
         }
