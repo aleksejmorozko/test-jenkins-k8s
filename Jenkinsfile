@@ -27,15 +27,15 @@ pipeline {
 
   stages {
     stage('Find deployment descriptor') {
-        steps {
-            container('git') {
-                script {
-                    def revision = params.VERSION.substring(0, 7)
-                    sh 'echo $revision'
-                    }
-                }
+      steps {
+        container('git') {
+          script {
+            def revision = params.VERSION.substring(0, 7)
+              sh 'echo $revision'
             }
+
         }
+      }
     }
     stage ( 'Kaniko build'){
       steps {
