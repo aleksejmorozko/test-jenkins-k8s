@@ -78,7 +78,7 @@ pipeline {
           script {
             dir ("${params.GIT_REPO}") {
               sh """
-              helm upgrade --install nginx-test .helm --namespace default --set registry=my-local.registry
+              helm upgrade --install nginx-test .helm --namespace jenkins-transru --set registry=my-local.registry
               """
             }
           }
