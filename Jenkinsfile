@@ -78,7 +78,10 @@ pipeline {
           script {
             dir ("${params.GIT_REPO}") {
               sh """
-              helm upgrade --install nginx-test .helm --namespace jenkins-transru --set registry=my-local.registry
+              helm upgrade --install nginx-test .helm \
+              --namespace jenkins-transru \
+              --set registry=my-local.registry \
+              --set image.tag=${env.GIT_COMMIT.take(7)}
               """
             }
           }

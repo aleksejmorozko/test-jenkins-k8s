@@ -4,28 +4,28 @@ metadata:
   name: kaniko
 spec:
   containers:
-  - name: kubectl
-    image: joshendriks/alpine-k8s
-    command:
-      - /bin/cat
-    tty: true
+#  - name: kubectl
+#    image: joshendriks/alpine-k8s
+#    command:
+#      - /bin/cat
+#    tty: true
   - name: kaniko
     image: gcr.io/kaniko-project/executor:debug
     command:
       - /busybox/cat
     tty: true
-  - name: git
-    image: alpine/git
-    command: ["cat"]
-    tty: true
+#  - name: git
+#    image: alpine/git
+#    command: ["cat"]
+#    tty: true
   - name: helm-cli
     image: lachlanevenson/k8s-helm:v3.9.4
     command: ["cat"]
     tty: true
-  - name: k8s
-    image: alpine/k8s:1.19.8
-    command: ["cat"]
-    tty: true
+#  - name: k8s
+#    image: alpine/k8s:1.19.8
+#    command: ["cat"]
+#    tty: true
 #      volumemounts:
 #        - name: kaniko-secret
 #          mountPath: /kaniko/.docker
