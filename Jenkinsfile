@@ -80,7 +80,7 @@ pipeline {
               sh """
               kubectl config set-cluster k8s-transru --insecure-skip-tls-verify=true --server=https://192.168.1.108:6443
               kubectl config set-credentials git-ci --token=eyJhbGciOiJSUzI1NiIsImtpZCI6IkdJVDNoZEJEZjgzSmp3NkZ4VmRDSk9udWprQWZDUXcxcDVKOExjTWZqTkkifQ
-              kubectl config set-context git-ci --cluster=k8s-transru --user=`jenkins-transru`
+              kubectl config set-context git-ci --cluster=k8s-transru --user=jenkins-transru
               kubectl config use-context git-ci
               kubectl get po -n default
               helm upgrade --install nginx-test .helm --namespace six --set registry=my-local.registry
