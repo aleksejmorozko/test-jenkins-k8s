@@ -78,10 +78,6 @@ pipeline {
           script {
             dir ("${params.GIT_REPO}") {
               sh """
-              kubectl config set-cluster k8s-transru --insecure-skip-tls-verify=true --server=${SERVER_URL}
-              kubectl config set-credentials git-ci --token=${SERVICE_ACCOUNT}
-              kubectl config set-context git-ci --cluster=k8s-transru --user=jenkins-transru
-              kubectl config use-context git-ci
               helm upgrade --install nginx-test .helm --namespace six --set registry=my-local.registry
               """
             }
@@ -94,3 +90,9 @@ pipeline {
 
 
 //k8s:1.19.8
+/*
+kubectl config set-cluster k8s-transru --insecure-skip-tls-verify=true --server=${SERVER_URL}
+kubectl config set-credentials git-ci --token=${SERVICE_ACCOUNT}
+kubectl config set-context git-ci --cluster=k8s-transru --user=jenkins-transru
+kubectl config use-context git-ci
+*/
