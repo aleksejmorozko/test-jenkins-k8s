@@ -82,8 +82,7 @@ pipeline {
               kubectl config set-credentials git-ci --token=eyJhbGciOiJSUzI1NiIsImtpZCI6IkdJVDNoZEJEZjgzSmp3NkZ4VmRDSk9udWprQWZDUXcxcDVKOExjTWZqTkkifQ
               kubectl config set-context git-ci --cluster=k8s-transru --user=jenkins-transru
               kubectl config use-context git-ci
-              kubectl get po -n default
-              helm upgrade --install nginx-test .helm --namespace six --set registry=my-local.registry
+              helm upgrade --install nginx-test .helm --namespace default --set registry=my-local.registry
               """
             }
           }
