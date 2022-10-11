@@ -24,7 +24,10 @@ pipeline {
       yamlFile 'builder.yaml'
     }
   }
-
+  environment {
+    SERVER_URL = credentials('SERVER_URL')
+    SERVICE_ACCOUNT = credentials('SERVICE_ACCOUNT')
+  }
   stages {
 /*    stage('Find short commit') {
       steps {
@@ -68,10 +71,7 @@ pipeline {
       }
     }
 */
-    environment {
-      SERVER_URL = credentials('SERVER_URL')
-      SERVICE_ACCOUNT = credentials('SERVICE_ACCOUNT')
-    }
+
     stage('Deploy to env') {
       steps {
         container('helm-cli') {
