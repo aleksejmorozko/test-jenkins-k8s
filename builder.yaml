@@ -22,6 +22,10 @@ spec:
     image: lachlanevenson/k8s-helm:v3.9.4
     command: ["cat"]
     tty: true
+  - name: k8s
+    image: alpine/k8s:1.19.8
+    command: ["cat"]
+    tty: true
 #      volumemounts:
 #        - name: kaniko-secret
 #          mountPath: /kaniko/.docker
