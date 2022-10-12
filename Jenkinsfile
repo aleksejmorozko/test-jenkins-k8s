@@ -88,28 +88,6 @@ pipeline {
         }
       }
     }
-
-    /*
-    post {
-      always {
-        echo 'One way or another, I have finished'
-        deleteDir() /* clean up our workspace */
-      }
-      success {
-        echo 'I succeeded!'
-      }
-      unstable {
-        echo 'I am unstable :/'
-      }
-      failure {
-        echo 'I failed :('
-      }
-      changed {
-        echo 'Things were different before...'
-      }
-    }
-    */
-
   }
 }
 
@@ -123,4 +101,24 @@ kubectl config use-context git-ci
 
 kubectl create clusterrolebinding jenkins --clusterrole cluster-admin --serviceaccount=jenkins:default
 
+*/
+/*
+post {
+  always {
+    echo 'One way or another, I have finished'
+    deleteDir() /* clean up our workspace */
+  }
+  success {
+    echo 'I succeeded!'
+  }
+  unstable {
+    echo 'I am unstable :/'
+  }
+  failure {
+    echo 'I failed :('
+  }
+  changed {
+    echo 'Things were different before...'
+  }
+}
 */
