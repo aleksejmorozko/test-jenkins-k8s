@@ -106,7 +106,7 @@ kubectl create clusterrolebinding jenkins --clusterrole cluster-admin --servicea
 post {
   always {
     echo 'One way or another, I have finished'
-    deleteDir() /* clean up our workspace */
+    deleteDir() //clean up our workspace
   }
   success {
     echo 'I succeeded!'
