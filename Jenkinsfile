@@ -29,17 +29,6 @@ pipeline {
     SERVICE_ACCOUNT = credentials('SERVICE_ACCOUNT')
   }
   stages {
-/*    stage('Find short commit') {
-      steps {
-        container('git') {
-          script {
-            sh_commit = 'git rev-parse --short=8 HEAD'
-            sh "echo $sh_commit"
-          }
-        }
-      }
-    }
-*/
     stage ( 'Kaniko build'){
       steps {
         container('kaniko'){
@@ -87,6 +76,23 @@ pipeline {
           }
         }
       }
+    }
+
+    /*    stage('Find short commit') {
+          steps {
+            container('git') {
+              script {
+                sh_commit = 'git rev-parse --short=8 HEAD'
+                sh "echo $sh_commit"
+              }
+            }
+          }
+        }
+    */
+  }
+  post {
+    always {
+        echo 'I will always say Hello again!'
     }
   }
 }
