@@ -88,6 +88,24 @@ pipeline {
         }
       }
     }
+    post {
+      always {
+        echo 'One way or another, I have finished'
+        deleteDir() /* clean up our workspace */
+      }
+      success {
+        echo 'I succeeded!'
+      }
+      unstable {
+        echo 'I am unstable :/'
+      }
+      failure {
+        echo 'I failed :('
+      }
+      changed {
+        echo 'Things were different before...'
+      }
+    }
   }
 }
 
@@ -98,4 +116,7 @@ kubectl config set-cluster k8s-transru --insecure-skip-tls-verify=true --server=
 kubectl config set-credentials git-ci --token=${SERVICE_ACCOUNT}
 kubectl config set-context git-ci --cluster=k8s-transru --user=jenkins-transru
 kubectl config use-context git-ci
+
+kubectl create clusterrolebinding jenkins --clusterrole cluster-admin --serviceaccount=jenkins:default
+
 */
