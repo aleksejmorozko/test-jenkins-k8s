@@ -35,7 +35,7 @@ pipeline {
           script {
             sh "printenv"
             sh "echo ${env.GIT_COMMIT.take(7)}"
-            sh "echo '192.168.1.108 my-local.registry' >> /etc/hosts"
+            sh "echo '127.0.0.1 my-local.registry' >> /etc/hosts"
             sh "cat /etc/hosts"
             sh """
             /kaniko/executor --dockerfile `pwd`/Dockerfile \
@@ -96,35 +96,3 @@ pipeline {
     }
   }
 }
-
-
-//    alpine/k8s:1.19.8
-/*
-kubectl config set-cluster k8s-transru --insecure-skip-tls-verify=true --server=${SERVER_URL}
-kubectl config set-credentials git-ci --token=${SERVICE_ACCOUNT}
-kubectl config set-context git-ci --cluster=k8s-transru --user=jenkins-transru
-kubectl config use-context git-ci
-
-kubectl create clusterrolebinding jenkins --clusterrole cluster-admin --serviceaccount=jenkins:default
-
-*/
-/*
-post {
-  always {
-    echo 'One way or another, I have finished'
-    deleteDir() //clean up our workspace
-  }
-  success {
-    echo 'I succeeded!'
-  }
-  unstable {
-    echo 'I am unstable :/'
-  }
-  failure {
-    echo 'I failed :('
-  }
-  changed {
-    echo 'Things were different before...'
-  }
-}
-*/
