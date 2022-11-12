@@ -35,6 +35,7 @@ pipeline {
           script {
             sh "printenv"
             sh "echo ${env.GIT_COMMIT.take(7)}"
+            sh "echo '127.0.0.1 docker-registry-service' >> /etc/hosts "
             sh "cat /etc/hosts"
             sh """
             /kaniko/executor --dockerfile `pwd`/Dockerfile \
