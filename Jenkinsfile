@@ -35,31 +35,18 @@ pipeline {
           script {
             sh "printenv"
             sh "echo ${env.GIT_COMMIT.take(7)}"
-            sh "echo '192.168.1.116 my-local.registry' >> /etc/hosts"
             sh "cat /etc/hosts"
             sh """
             /kaniko/executor --dockerfile `pwd`/Dockerfile \
                               --context `pwd` \
                               --skip-tls-verify \
-                              --destination=my-local.registry/nginx-test:${env.GIT_COMMIT.take(7)}
+                              --destination=docker-registry-service:5000/nginx-test:${env.GIT_COMMIT.take(7)}
             """
           }
         }
       }
     }
-///
-/*
-    stage('deploy'){
-      steps {
-        container('kubectl'){
-          withCredentials([file(credentialsId: 'mykubeconfig', variable: 'KUBECONFIG')]) {
-            sh 'sed -i "s/<TAG>/${BUILD_NUMBER}/" myweb.yaml'
-            sh 'kubectl apply -f myweb.yaml'
-          }
-        }
-      }
-    }
-*/
+
 
     stage('Deploy to env') {
       steps {
@@ -69,30 +56,13 @@ pipeline {
               sh """
               helm upgrade --install nginx-test .helm \
               --namespace jenkins-transru \
-              --set registry=my-local.registry \
+              --set registry=docker-registry-service:5000 \
               --set image.tag=${env.GIT_COMMIT.take(7)}
               """
             }
           }
         }
       }
-    }
-
-    /*    stage('Find short commit') {
-          steps {
-            container('git') {
-              script {
-                sh_commit = 'git rev-parse --short=8 HEAD'
-                sh "echo $sh_commit"
-              }
-            }
-          }
-        }
-    */
-  }
-  post {
-    always {
-        echo 'I will always say Hello again!'
     }
   }
 }
