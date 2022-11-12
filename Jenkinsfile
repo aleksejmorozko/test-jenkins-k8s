@@ -41,7 +41,7 @@ pipeline {
             /kaniko/executor --dockerfile `pwd`/Dockerfile \
                               --context `pwd` \
                               --skip-tls-verify \
-                              --destination=docker-registry-service:5000/nginx-test:${env.GIT_COMMIT.take(7)}
+                              --destination=docker-registry-service.registry-local.svc.cluster.local:5000/nginx-test:${env.GIT_COMMIT.take(7)}
             """
           }
         }
@@ -57,7 +57,7 @@ pipeline {
               sh """
               helm upgrade --install nginx-test .helm \
               --namespace jenkins-transru \
-              --set registry=docker-registry-service:5000 \
+              --set registry=docker-registry-service.registry-local.svc.cluster.local:5000:5000 \
               --set image.tag=${env.GIT_COMMIT.take(7)}
               """
             }
