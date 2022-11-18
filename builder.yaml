@@ -14,6 +14,10 @@ spec:
     command:
       - /busybox/cat
     tty: true
+    volumemounts:
+    - name: kaniko-secret
+      mountPath: /kaniko/.docker
+
 #  - name: git
 #    image: alpine/git
 #    command: ["cat"]
@@ -29,10 +33,10 @@ spec:
 #      volumemounts:
 #        - name: kaniko-secret
 #          mountPath: /kaniko/.docker
-#  volumes:
-#    - name: kaniko-secret
-#      secret:
-#        secretName: regcred
-#        items:
-#          - key: .dockerconfigjson
-#            path: config.json
+  volumes:
+  - name: kaniko-secret
+    secret:
+      secretName: regcred
+      items:
+      - key: .dockerconfigjson
+        path: config.json
