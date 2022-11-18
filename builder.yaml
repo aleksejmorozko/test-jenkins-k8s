@@ -14,7 +14,7 @@ spec:
     command:
       - /busybox/cat
     tty: true
-    volumemounts:
+    volumeMounts:
     - name: kaniko-secret
       mountPath: /kaniko/.docker
 
